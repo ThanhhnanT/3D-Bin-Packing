@@ -4,17 +4,30 @@ import time
 start = time.time()
 # data = pd.read_excel("C:/Users/vuong/OneDrive/Máy tính/Input.xlsx")
 
-file_path = input("Nhập đường dẫn tới tệp Excel: ")
+import tkinter as tk
+from tkinter import filedialog
 
-try:
-    # Đọc tệp Excel
-    data = pd.read_excel(file_path)
-    print("Đã tìm thấy file")
-    print("******************************")
-except FileNotFoundError:
-    print("Không tìm thấy tệp. Vui lòng kiểm tra đường dẫn!")
-except Exception as e:
-    print(f"Có lỗi xảy ra: {e}")
+# Tạo cửa sổ Tkinter
+root = tk.Tk()
+root.withdraw()  # Ẩn cửa sổ chính của Tkinter
+
+# Hiển thị hộp thoại chọn tệp
+file_path = filedialog.askopenfilename(title="Chọn tệp Excel", filetypes=[("Excel files", "*.xlsx;*.xls")])
+
+# Kiểm tra xem người dùng có chọn tệp không
+if file_path:
+    try:
+        # Đọc tệp Excel
+        data = pd.read_excel(file_path)
+        print("Đã tìm thấy file")
+        print("******************************")
+        print(f"Số hàng: {data.shape[0]}, Số cột: {data.shape[1]}")
+        print("Dữ liệu đầu tiên trong tệp:")
+        print(data.head())
+    except Exception as e:
+        print(f"Có lỗi xảy ra: {e}")
+else:
+    print("Không có tệp nào được chọn.")
 '''
 
 If you have multiple boxes, you can change distribute_items to achieve different packaging purposes.
