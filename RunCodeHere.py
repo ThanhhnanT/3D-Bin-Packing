@@ -2,8 +2,18 @@ import pandas as pd
 from py3dbp import Packer, Bin, Item, Painter
 import time
 start = time.time()
-data = pd.read_excel("C:/Users/vuong/OneDrive/Máy tính/Input.xlsx")
+# data = pd.read_excel("C:/Users/vuong/OneDrive/Máy tính/Input.xlsxC:/Users/vuong/OneDrive/Máy tính/Input.xlsx")
 
+file_path = input("Nhập đường dẫn tới tệp Excel: ")
+
+try:
+    # Đọc tệp Excel
+    data = pd.read_excel(file_path)
+    print("\nĐã tìm thấy file, đang sắp xếp...")
+except FileNotFoundError:
+    print("Không tìm thấy tệp. Vui lòng kiểm tra đường dẫn!")
+except Exception as e:
+    print(f"Có lỗi xảy ra: {e}")
 '''
 
 If you have multiple boxes, you can change distribute_items to achieve different packaging purposes.
