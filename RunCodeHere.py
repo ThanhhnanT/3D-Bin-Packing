@@ -2,14 +2,15 @@ import pandas as pd
 from py3dbp import Packer, Bin, Item, Painter
 import time
 start = time.time()
-# data = pd.read_excel("C:/Users/vuong/OneDrive/Máy tính/Input.xlsxC:/Users/vuong/OneDrive/Máy tính/Input.xlsx")
+# data = pd.read_excel("C:/Users/vuong/OneDrive/Máy tính/Input.xlsx")
 
 file_path = input("Nhập đường dẫn tới tệp Excel: ")
 
 try:
     # Đọc tệp Excel
     data = pd.read_excel(file_path)
-    print("\nĐã tìm thấy file, đang sắp xếp...")
+    print("Đã tìm thấy file")
+    print("******************************")
 except FileNotFoundError:
     print("Không tìm thấy tệp. Vui lòng kiểm tra đường dẫn!")
 except Exception as e:
@@ -25,9 +26,24 @@ If you have multiple boxes, you can change distribute_items to achieve different
 # init packing function
 packer = Packer()
 # Khởi tạo danh sách các bins
+# bins = [
+#     Bin(f'Bin{i+1}', (1100, 1100, 900), 10000, 0, 0)
+#     for i in range(20)
+# ]
+
+# Nhập số lượng bin
+num_bins = int(input("Nhập số lượng bin: "))
+
+# Nhập kích thước bin
+width = float(input("Nhập chiều dài: "))
+height = float(input("Nhập chiều rộng: "))
+depth = float(input("Nhập chiều cao: "))
+print("Đã nhận dữ liệu. Đang tiến hành sắp xếp ...")
+
+# Tạo danh sách các bin
 bins = [
-    Bin(f'Bin{i+1}', (1100, 1100, 900), 10000, 0, 0)
-    for i in range(20)
+    Bin(f'Bin{i+1}', (width, height, depth), max_weight=10000)
+    for i in range(num_bins)
 ]
 
 # Thêm các bins vào packer
