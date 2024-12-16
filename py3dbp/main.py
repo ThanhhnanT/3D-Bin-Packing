@@ -367,7 +367,20 @@ class Packer:
         self.total_items = len(self.items) + 1
 
         return self.items.append(item)
-
+    
+    def removeItem(self, item):
+        '''Remove an item from the list.'''
+        if item in self.items:
+            self.items.remove(item)
+            self.total_items = len(self.items)  # Cập nhật lại số lượng items
+            return True  # Xóa thành công
+        else:
+            return False  # Item không tồn tại trong danh sách
+    def clearItems(self):
+        '''Clear all items from the list.'''
+        self.items.clear()  # Xóa tất cả items trong self.items
+        self.total_items = 0  # Cập nhật lại số lượng items    
+    
 
     def pack2Bin(self, bin, item,fix_point,check_stable,support_surface_ratio):
         ''' pack item to bin '''
@@ -435,6 +448,7 @@ class Packer:
             for j in i:
                 if j not in sort_bind:
                     self.unfit_items.append(j)
+                    
 
         self.items = front + sort_bind + back
         return
@@ -538,7 +552,10 @@ class Packer:
         r = [area[0][2],area[1][2],area[2][2],area[3][2]]
         result = []
         for i in r :
-            result.append(round(i / sum(r) * 100,2))
+            if sum(r) == 0:
+                result = [0, 0, 0, 0]  # Không có trọng lực phân bố
+            else:
+                result = [round(i / sum(r) * 100, 2) for i in r]
         return result
 
 
